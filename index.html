@@ -124,7 +124,7 @@ const showQR=(cv,box,s,px)=>{box.replaceChildren();if(!s){cv.hidden=true;box.tex
  try{const r=VietQR.build(s),q=QRCodeCore.encode(r.payload),n=r.normalized;cv.hidden=false;draw(cv,q.modules,px,q.errorCorrection==='M'?s.logo||LOGO:null);
   box.style.setProperty('--cw',parseFloat(cv.style.width)+40+'px');
   box.append(h('div',{class:'qc'},h('div',{class:'qh'},h('div',{class:'qa'},n.account),h('div',{class:'qn'},VietQR.clean(s.accountName))),cv,h('img',{src:s.brand||BRAND,alt:'Logo'})),
-   h('div',{class:'qi'},n.amount?h('b',{},Number(n.amount).toLocaleString('en-US')+' VND'):h('span',{},'Khách tự nhập số tiền'),n.amount||s.description?h('span',{},s.description||''):''))}
+   h('div',{class:'qi'},n.amount?h('b',{},Number(n.amount).toLocaleString('en-US')+' VND'):h('span',{},''),n.amount||s.description?h('span',{},s.description||''):''))}
  catch(e){cv.hidden=true;box.textContent=errText(e)}};
 
 /* ---------- pairing + protocol ---------- */
@@ -152,7 +152,7 @@ const diag=extra=>{const box=h('pre',{style:'font-size:12px;white-space:pre-wrap
 
 /* ---------- CONTROL ---------- */
 const control=root=>{
- let accs=store.get('accs',[]),sel=(accs.find(a=>a.isDefault)||accs[0]||{}).id,amount=store.get('amt',''),desc=store.get('desc','Thanh Taxi Xanh'),lg=store.get('logo',''),br=store.get('brand',''),seq=0,tm;
+ let accs=store.get('accs',[]),sel=(accs.find(a=>a.isDefault)||accs[0]||{}).id,amount=store.get('amt',''),desc=store.get('desc','Thanh Taxi Xanh - 0878300385'),lg=store.get('logo',''),br=store.get('brand',''),seq=0,tm;
  const peers=[],persist=()=>{store.set('accs',accs)};
  const cur=()=>{const a=accs.find(x=>x.id===sel);return a?{bankName:a.bankName,bin:a.bin,accountNumber:a.accountNumber,accountName:a.accountName,amount,description:desc,logo:lg,brand:br}:null};
  const stEl=h('span',{class:'pill'},'Chưa kết nối Display'),blockEl=h('p',{class:'msg'}),msgEl=h('p',{class:'msg'}),cv=h('canvas'),box=h('div'),list=h('div'),pairBox=h('div');
